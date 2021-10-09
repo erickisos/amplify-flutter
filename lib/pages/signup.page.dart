@@ -1,9 +1,15 @@
+import 'package:amplify_test/models/signup.model.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
   final VoidCallback shouldShowLogin;
+  final ValueChanged<SignUpCredentials> didProvideCredentials;
 
-  SignUpPage({Key? key, required this.shouldShowLogin}) : super(key: key);
+  SignUpPage(
+      {Key? key,
+      required this.shouldShowLogin,
+      required this.didProvideCredentials})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => SignUpPageState();
@@ -79,5 +85,9 @@ class SignUpPageState extends State<SignUpPage> {
     print('User: $username');
     print('Email: $email');
     print('Password: $password');
+
+    final credentials =
+        SignUpCredentials(username: username, password: password, email: email);
+    widget.didProvideCredentials(credentials);
   }
 }
